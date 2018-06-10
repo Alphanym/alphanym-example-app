@@ -11,6 +11,8 @@ import { DebounceInput } from 'react-debounce-input';
 import styled from 'styled-components';
 import onClickOutside from 'react-onclickoutside'
 
+const Version = '1.0';
+
 const Container = styled.div`
   width: 100%;
   min-width: 310px;
@@ -299,6 +301,7 @@ class FeedbackDropdown extends React.Component {
 
   handleComplete() {
     const names = {
+      version: Version,
       name: this.props.results.name,
       betanym: this.getBetanym(),
     };
