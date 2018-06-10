@@ -21,13 +21,26 @@ function homeReducer(state=initialState, action) {
     case RESET_STATE:
       return initialState;
     case QUERY_NAME:
-      return Object.assign({}, state, {queryLoading: true, names: {}});
+      return Object.assign({}, state, {
+        queryLoading: true,
+        names: {},
+      });
     case QUERY_NAME_SUCCESS:
-      return Object.assign({}, state, {queryResults: action.payload, queryLoading: false});
+      return Object.assign({}, state, {
+        queryResults: action.payload,
+        queryLoading: false,
+      });
     case QUERY_NAME_FAILURE:
-      return Object.assign({}, state, {queryLoading: false});
+      return Object.assign({}, state, {
+        queryLoading: false,
+        names: action.payload,
+      });
     case COMPLETE_NAME:
-      return Object.assign({}, state, {queryResults: {}, queryLoading: false, names: action.payload});
+      return Object.assign({}, state, {
+        queryResults: {},
+        queryLoading: false,
+        names: action.payload,
+      });
     default:
       return state;
   }

@@ -263,8 +263,11 @@ class FeedbackDropdown extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.isUncertain(prevProps.results) && !this.isUncertain()) {
-      this.handleComplete();
+    const changeCertain = !isEmpty(this.props.results) && this.isUncertain(prevProps.results) && !this.isUncertain();
+    const setResults = isEmpty(prevProps.results) && !isEmpty(this.props.results) && !this.isUncertain();
+
+    if (changeCertain || setResults) {
+      this.handleComplete.bind(this)();
     }
   }
 

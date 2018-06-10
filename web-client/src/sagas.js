@@ -1,7 +1,7 @@
 
 import { takeLatest, fork, put } from 'redux-saga/effects';
 import { QUERY_NAME } from "./constants";
-import { queryNameSuccess } from "./actions";
+import { queryNameSuccess, queryNameFailure } from "./actions";
 import { backendUrl, requestJson } from "./utils";
 
 export function* queryName(action) {
@@ -15,12 +15,18 @@ export function* queryName(action) {
     body: JSON.stringify(data),
   };
 
-  const responseData = yield requestJson(
-    url,
-    options,
-  );
-
-  yield put(queryNameSuccess(responseData));
+  try {
+    const responseData = yield requestJson(
+      url,
+      options,
+    );
+    yield put(queryNameSuccess(responseData));
+  } catch (e) {
+    yield put(queryNameFailure({
+      name: data.name,
+      betanym: data.name,
+    }));
+  }
 }
 
 //yield takeLatest(SUBMIT_QUERY, postQuery);
