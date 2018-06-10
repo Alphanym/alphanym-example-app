@@ -39,7 +39,7 @@ const Contents = styled.div`
 `;
 
 const Hello = styled.label`
-  margin: 3em auto;
+  margin: 5em auto 1em auto;
   font-weight: normal;
   font-size: 1.25em;
 `;
