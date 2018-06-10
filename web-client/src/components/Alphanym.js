@@ -230,7 +230,6 @@ class LogoDark extends React.Component {
   }
 }
 
-
 class LogoLight extends React.Component {
   render() {
     return (
