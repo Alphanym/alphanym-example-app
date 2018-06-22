@@ -2,10 +2,10 @@
 import React from "react";
 import styled from 'styled-components';
 import { connect } from "react-redux";
-import { isEmpty } from 'lodash';
+import { isEmpty, trim } from 'lodash';
 
 import { AlphanymField } from './Alphanym';
-import { queryName, completeName, resetState } from '../actions'
+import { queryName, completeName, resetState, nameFeedback } from '../actions'
 
 const Contents = styled.div`
   width: 100%;
@@ -54,16 +54,17 @@ class Home extends React.Component {
     this.props.dispatch(queryName(nameText));
   }
 
+  handleFeedback(names) {
+    console.log('send feedback', names);
+    this.props.dispatch(nameFeedback(names));
+  }
+
   handleComplete(names) {
     this.props.dispatch(completeName(names));
   }
 
   handleReset() {
     this.props.dispatch(resetState());
-  }
-
-  handleFeedback(names) {
-    console.log('feedback', names)
   }
 
   render() {
@@ -92,7 +93,7 @@ class Home extends React.Component {
              />
           </div>
 
-          <Hello style={ {visibility: hasNames ? 'visible' : 'hidden'} }>Hello { names.betanym }!</Hello>
+          <Hello style={ {visibility: hasNames && trim(names.betanym).length ? 'visible' : 'hidden'} }>Hello { names.betanym }!</Hello>
 
           <ResetButton onClick={ this.handleReset.bind(this) }>Reset</ResetButton>
 

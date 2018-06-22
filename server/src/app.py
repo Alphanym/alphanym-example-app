@@ -14,29 +14,36 @@ CORS(app)
 
 @app.route('/query/', methods=['POST'])
 def query():
+    apitoken = _get_api_token()
+
     try:
-        apitoken = os.environ['ALPHANYM_SECRET_KEY']
+        query_results = alphanym.query(
+            apitoken,
+            request.json,
+        )
+    except alphanym.AlphanymException:
+        return (json.dumps({}), 400)
+    else:
+        return json.dumps(query_results)
+
+@app.route('/feedback/', methods=['POST'])
+def feedback():
+    apitoken = _get_api_token()
+
+    try:
+        feedback_results = alphanym.feedback(
+            apitoken,
+            request.json,
+        )
+    except alphanym.AlphanymException:
+        return (json.dumps({}), 400)
+    else:
+        return json.dumps(feedback_results)
+
+def _get_api_token():
+    try:
+        return os.environ['ALPHANYM_SECRET_KEY']
     except KeyError:
         raise RuntimeError('Set the environment variable `ALPHANYM_SECRET_KEY` with your Alphanym API key')
-    else:
-        try:
-            nametext = request.json['name']
-        except (KeyError, TypeError):
-            return (json.dumps({}), 400)
-        else:
-            if isinstance(nametext, str):
-                try:
-                    alphanym_query_results = alphanym.query(apitoken, nametext)
-                except alphanym.AlphanymException:
-                    alphanym_query_results = {
-                        'name': nametext,
-                        'alphanym': nametext,
-                        'betanym': nametext,
-                    }
-
-                return json.dumps(alphanym_query_results)
-            else:
-                return (json.dumps({}), 400)
 
 app.run()
-
