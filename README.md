@@ -4,7 +4,7 @@ This application demonstrates a full-stack integration with the [Alphanym](https
 
 ## Installation
 
-This is a full-stack integration, so we assume you have Git, npm/Node, and Python 3 installed already.
+This is a full-stack integration, so we assume you have [Git](https://git-scm.com/), [node](https://nodejs.org/en/)/[npm](https://www.npmjs.com/), and [Python 3](https://www.python.org/) installed already.
 
 ```sh 
 git clone https://github.com/Alphanym/alphanym-example-app.git
