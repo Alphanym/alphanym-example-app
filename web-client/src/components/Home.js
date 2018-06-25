@@ -3,8 +3,8 @@ import React from "react";
 import styled from 'styled-components';
 import { connect } from "react-redux";
 import { isEmpty, trim } from 'lodash';
+import { AlphanymField } from 'alphanym-js';
 
-import { AlphanymField } from './Alphanym';
 import { queryName, completeName, resetState, nameFeedback } from '../actions'
 
 const Contents = styled.div`
